@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sliding Panel</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+      background-color: #f0f0f0;
+    }
+
+    .button-container {
+      position: relative;
+      z-index: 2;
+    }
+
+    .slider {
+      position: absolute;
+      top: 0;
+      left: -33.33%; /* Start hidden to the left */
+      height: 100%;
+      width: 33.33%;
+      background-color: #4caf50;
+      color: white;
+      padding: 20px;
+      box-sizing: border-box;
+      transition: left 0.5s ease; /* Smooth sliding effect */
+    }
+
+    .slider.open {
+      left: 0; /* Slide into view */
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <div class="button-container">
+    <button onclick="toggleSlider()">Click Me</button>
+  </div>
+  <div class="slider" id="slider">
+    <h1>Sliding Panel</h1>
+    <p>This is some text inside the sliding panel. It covers one-third of the screen width.</p>
+  </div>
+
+  <script>
+    function toggleSlider() {
+      const slider = document.getElementById('slider');
+      slider.classList.toggle('open');
+    }
+  </script>
+</body>
+</html>

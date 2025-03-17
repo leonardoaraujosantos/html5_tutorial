@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tranças da Stela</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #F4E1D2;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            color: #3D1E1E;
+        }
+        .header {
+            background-color: #53c455;
+            color: white;
+            padding: 20px;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .container {
+            padding: 20px;
+        }
+        .product {
+            display: inline-block;
+            width: 300px;
+            background: white;
+            margin: 20px;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+        .product:hover {
+            transform: scale(1.05);
+        }
+        .product img {
+            width: 100%;
+            border-radius: 10px;
+        }
+        .button {
+            display: block;
+            margin: 10px auto;
+            padding: 10px 20px;
+            background-color: #32b74d;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+        .button:hover {
+            background-color: #A92323;
+        }
+        .footer {
+            margin-top: 20px;
+            padding: 10px;
+            background: #3D1E1E;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">Tranças da Stela - Beleza e Cultura Afro</div>
+    <div class="container">
+        <div class="product">
+            <img src="braids.jpeg" alt="Trança Box Braids">
+            <h3>Box Braids</h3>
+            <p>Tranças estilizadas e resistentes, ideais para qualquer ocasião.</p>
+            <a href="https://wa.link/ovo5a7" class="button">Agendar agora</a>
+        </div>
+        <div class="product">
+            <img src="nago.jpeg" alt="Trança Nagô">
+            <h3>Nagô</h3>
+            <p>Arte e cultura em cada fio, penteados únicos e marcantes.</p>
+            <a href="#" class="button">Agendar agora</a>
+        </div>
+        <div class="product">
+            <img src="twist.jpeg" alt="Trança Twist">
+            <h3>Twist</h3>
+            <p>Leveza e praticidade, perfeitas para o dia a dia.</p>
+            <a href="#" class="button">Agendar agora</a>
+        </div>
+    </div>
+    <div class="footer">Contato: (21) 959071586 | Instagram: @BraidStela</div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            let products = document.querySelectorAll('.product');
+            products.forEach((product, index) => {
+                setTimeout(() => {
+                    product.style.opacity = "1";
+                    product.style.transform = "translateY(0)";
+                }, index * 300);
+            });
+        });
+    </script>
+</body>
+</html>

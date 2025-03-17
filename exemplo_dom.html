@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leitura e Escrita na DOM</title>
+</head>
+<body>
+
+    <h1>Exemplo de Leitura e Escrita na DOM</h1>
+
+    <input type="text" id="inputText" placeholder="Digite algo">
+    <button onclick="updateText()">Atualizar Texto</button>
+    
+    <p id="outputText">O texto aparecerá aqui...</p>
+
+    <script>
+        function updateText() {
+            // Leitura da DOM: Obtendo o valor do input
+            let inputValue = document.getElementById("inputText").value;
+            
+            // Escrita na DOM: Atualizando o parágrafo com o valor do input
+            document.getElementById("outputText").textContent = inputValue;
+        }
+    </script>
+
+</body>
+</html>

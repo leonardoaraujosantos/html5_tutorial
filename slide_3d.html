@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Three.js Interaction with Sliding Panel</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      overflow: hidden;
+    }
+
+    .slider {
+      position: absolute;
+      top: 0;
+      left: -33.33%; /* Start hidden to the left */
+      height: 100%;
+      width: 33.33%;
+      /*background-color: #4caf50;*/
+      background-color: rgba(76, 175, 79, 0.621);
+      color: white;
+      padding: 20px;
+      box-sizing: border-box;
+      transition: left 0.5s ease, background-color 0.5s ease;
+      z-index: 2;
+    }
+
+    .slider.open {
+      left: 0; /* Slide into view */
+    }
+
+    .slider img {
+      width: 100%; /* Make the image fit the width of the slider */
+      border-radius: 5px; /* Optional: Add rounded corners */
+      margin-top: 10px; /* Add some spacing */
+    }
+
+    .close-button {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background-color: #ff0000;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      font-size: 16px;
+      cursor: pointer;
+      line-height: 30px;
+      text-align: center;
+    }
+
+    canvas {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <div class="slider" id="slider">
+    <button class="close-button" onclick="closeSlider()">×</button>
+    <div id="slider-content">
+      <h1>Sliding Panel</h1>
+      <p>This is the default text inside the sliding panel.</p>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r110/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.110.0/examples/js/controls/OrbitControls.js"></script>
+  <script>
+    // Initialize Three.js scene
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({ antialias: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    document.body.appendChild(renderer.domElement);
+
+    // Add a sphere
+    const sphereGeometry = new THREE.SphereGeometry(1, 32, 32);
+    const sphereMaterial = new THREE.MeshBasicMaterial({ color: 0xff0000 });
+    const sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
+    sphere.position.x = -2;
+    scene.add(sphere);
+
+    // Add a cube
+    const cubeGeometry = new THREE.BoxGeometry(1, 1, 1);
+    const cubeMaterial = new THREE.MeshBasicMaterial({ color: 0x0000ff });
+    const cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
+    cube.position.x = 2;
+    scene.add(cube);
+
+    // Position the camera
+    camera.position.z = 5;
+
+    // Add OrbitControls
+    const controls = new THREE.OrbitControls(camera, renderer.domElement);
+
+    // Handle window resize
+    window.addEventListener('resize', () => {
+      // Update camera aspect ratio and projection matrix
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+
+      // Update renderer size
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+
+    // Animation loop
+    function animate() {
+      requestAnimationFrame(animate);
+      controls.update(); // Update the controls
+      renderer.render(scene, camera);
+    }
+    animate();
+
+    // Raycaster and Mouse for interaction
+    const raycaster = new THREE.Raycaster();
+    const mouse = new THREE.Vector2();
+    const slider = document.getElementById('slider');
+    const sliderContent = document.getElementById('slider-content');
+
+    // Event listener for object clicks
+    function onMouseClick(event) {
+      // Calculate mouse position in normalized device coordinates
+      const rect = renderer.domElement.getBoundingClientRect();
+      mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+      mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
+
+      // Update the raycaster
+      raycaster.setFromCamera(mouse, camera);
+
+      // Check for intersections
+      const intersects = raycaster.intersectObjects([sphere, cube]);
+
+      if (intersects.length > 0) {
+        const clickedObject = intersects[0].object;
+
+        if (clickedObject === sphere) {
+          slider.style.backgroundColor = 'rgba(76, 175, 80, 0.8)';
+          sliderContent.innerHTML = `
+            <h1>Sphere Clicked</h1>
+            <p>You clicked the red sphere! Here's some unique content for the sphere.</p>
+            <img src="https://via.placeholder.com/300x150.png?text=Sphere+Image" alt="Sphere Image" style="width:100%;margin-top:10px;" />
+          `;
+          slider.classList.add('open');
+        } else if (clickedObject === cube) {
+          slider.style.backgroundColor = 'rgba(76, 175, 80, 0.8)';
+          sliderContent.innerHTML = `
+            <h1>Cube Clicked</h1>
+            <p>You clicked the blue cube! Here's some unique content for the cube.</p>
+          `;
+          slider.classList.add('open');
+        }
+      }
+    }
+
+    // Attach click listener to the renderer's canvas
+    renderer.domElement.addEventListener('click', onMouseClick);
+
+    // Function to close the slider
+    function closeSlider() {
+      slider.classList.remove('open');
+    }
+  </script>
+</body>
+</html>
