@@ -46,16 +46,14 @@
                     body: JSON.stringify(formData)
                 });
                 if (response.ok) {
-                    document.getElementById("responseMessage").textContent = "Cadastro realizado com sucesso!";
+                    // Muda o estilo ...
                     document.getElementById("responseMessage").style.color = "green";
                     document.getElementById("leadForm").reset();
-                } else {
-                    document.getElementById("responseMessage").textContent = "Erro ao cadastrar. Tente novamente.";
-                    document.getElementById("responseMessage").style.color = "red";
                 }
             } catch (error) {
                 document.getElementById("responseMessage").textContent = "Falha na conexão com o servidor.";
                 document.getElementById("responseMessage").style.color = "red";
+                console.log("Falha de Conexao")
             }
         });
     </script>
