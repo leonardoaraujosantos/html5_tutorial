@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Localização GPS</title>
+</head>
+<body>
+
+  <h2>Minha Posição Atual</h2>
+  <button onclick="obterLocalizacao()">Mostrar minha posição</button>
+  <p id="posicao"></p>
+
+  <script>
+    function obterLocalizacao() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(mostrarPosicao, erroPosicao);
+      } else {
+        document.getElementById("posicao").textContent = "Geolocalização não suportada neste navegador.";
+      }
+    }
+
+    function mostrarPosicao(posicao) {
+      const latitude = posicao.coords.latitude;
+      const longitude = posicao.coords.longitude;
+      document.getElementById("posicao").textContent = 
+        `Latitude: ${latitude}, Longitude: ${longitude}`;
+    }
+
+    function erroPosicao(error) {
+      document.getElementById("posicao").textContent = 
+        "Erro ao obter localização: " + error.message;
+    }
+  </script>
+
+</body>
+</html>

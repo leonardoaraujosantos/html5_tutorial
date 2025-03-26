@@ -1,0 +1,30 @@
+<html>
+    <body>
+        <style>
+            .botao {
+              background-color: blue;
+              color: white;
+              padding: 10px 20px;
+              transition: background-color 0.5s ease;
+            }
+            
+            .botao:hover {
+              background-color: green;
+            }
+            .caixa {
+                width: 100px;
+                height: 100px;
+                background-color: red;
+                animation: mover 2s infinite alternate;
+            }
+
+            @keyframes mover{
+                from {transform: translate(0);}
+                to {transform: translate(200px);}
+            }
+        </style>
+            
+        <button class="botao">Passe o mouse</button>
+        <div class="caixa"></div>
+    </body>
+</html>

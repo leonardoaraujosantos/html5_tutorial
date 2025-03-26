@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>SVG + Animação + JS</title>
+  <style>
+    svg {
+      width: 200px;
+      height: 200px;
+      border: 1px solid #ccc;
+    }
+
+    #meuCirculo {
+      transition: transform 1s ease;
+    }
+
+    .animarAlgo {
+      transform: translateX(100px);
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Exemplo de SVG com Animação e JS</h2>
+
+  <svg>
+    <circle id="meuCirculo" cx="50" cy="50" r="40" fill="blue"/>
+  </svg>
+  <br><br>
+  <button onclick="animar()">Mover e mudar cor</button>
+
+  <script>
+    function animar() {
+      const circulo = document.getElementById("meuCirculo");
+      
+      // Aplica a classe para mover
+      circulo.classList.toggle("animarAlgo");
+      
+      // Troca a cor via JS
+      const corAtual = circulo.getAttribute("fill");
+      console.log(corAtual) 
+      circulo.setAttribute("fill", corAtual === "blue" ? "red" : "blue");
+    }
+  </script>
+
+</body>
+</html>
