@@ -1,0 +1,31 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Notificação</title>
+    </head>
+    <body>
+        <button onclick="mostrarNotificacao()">Mostrar Notificação</button>
+
+        <script>
+        function mostrarNotificacao() {
+        // Verifica se o navegador suporta
+        if (!("Notification" in window)) {
+            alert("Este navegador não suporta notificações!");
+            return;
+        }
+
+        // Pede permissão
+        Notification.requestPermission().then(function (perm) {
+            if (perm === "granted") {
+            new Notification("📣 Olá!", {
+                body: "Essa é uma notificação do seu site!",
+                icon: "https://cdn-icons-png.flaticon.com/512/753/753318.png"
+            });
+            } else {
+            alert("Permissão negada para notificações.");
+            }
+        });
+        }
+        </script>
+    </body>
+</html>
