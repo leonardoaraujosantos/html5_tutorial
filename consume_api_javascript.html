@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Conversão de Calorias para Gramas de Gordura</title>
+</head>
+<body>
+  <h1>Calorias para Gramas de Gordura</h1>
+  <form id="calorieForm">
+    <label for="age">Idade:</label><br>
+    <input type="number" id="age" name="age" required><br><br>
+
+    <label for="gender">Sexo:</label><br>
+    <select id="gender" name="gender" required>
+      <option value="male">Masculino</option>
+      <option value="female">Feminino</option>
+    </select><br><br>
+
+    <label for="calories">Calorias:</label><br>
+    <input type="number" id="calories" name="calories" required><br><br>
+
+    <button type="submit">Converter</button>
+  </form>
+
+  <h2>Resultado:</h2>
+  <p id="result"></p>
+
+  <script>
+    document.getElementById("calorieForm").addEventListener("submit", async function(event) {
+      event.preventDefault();
+
+      const age = parseInt(document.getElementById("age").value);
+      const gender = document.getElementById("gender").value;
+      const calories = parseInt(document.getElementById("calories").value);
+
+      const response = await fetch("https://ofjtwzqbzzbxyylvecst.supabase.co/functions/v1/calories_to_grams", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ age, gender, calories })
+      });
+
+      const data = await response.json();
+      document.getElementById("result").textContent = `Gramas de gordura: ${data.fat_grams}`;
+    });
+  </script>
+</body>
+</html>
